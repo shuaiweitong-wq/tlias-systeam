@@ -1,6 +1,8 @@
 package com.tsw.mapper;
 
 import com.tsw.pojo.Emp;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -32,4 +34,10 @@ public interface EmpMapper {
 //    List<Emp> getEmpList();
 
     List<Emp> getEmpList(String name, Short gender, LocalDate begin, LocalDate end);
+
+    void deleteByIds(List<Integer> ids);
+
+    @Insert("insert into emp(username, password, name, gender, image, job, entrydate, dept_id, create_time, update_time) " +
+            "values(#{username}, #{password}, #{name}, #{gender}, #{image}, #{job}, #{entrydate}, #{deptId}, #{createTime}, #{updateTime})")
+    void add(Emp emp);
 }

@@ -1,5 +1,6 @@
 package com.tsw.controller;
 
+import com.tsw.pojo.Emp;
 import com.tsw.pojo.PageBean;
 import com.tsw.pojo.Result;
 import com.tsw.service.EmpService;
@@ -7,12 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * 员工管理Controller
@@ -38,5 +37,27 @@ public class EmpController {
             return Result.error("员工分页查询失败");
         }
         return Result.success(pageBean);
+    }
+    @DeleteMapping("/{ids}")
+    public Result deleteByIds(@PathVariable List<Integer> ids){
+        try {
+            log.info("批量删除员工，参数：{}", ids);
+            empService.deleteByIds(ids);
+        } catch (Exception e) {
+            log.error("批量删除员工失败：{}", e.getMessage());
+            return Result.error("批量删除员工失败");
+        }
+        return Result.success();
+    }
+    @PostMapping
+    public Result add(@RequestBody Emp emp){
+        try {
+            log.info("添加员工，参数：{}", emp);
+            empService.add(emp);
+        } catch (Exception e) {
+            log.error("添加员工失败：{}", e.getMessage());
+            return Result.error("添加员工失败");
+        }
+        return Result.success();
     }
 }
