@@ -60,4 +60,28 @@ public class EmpController {
         }
         return Result.success();
     }
+    @GetMapping("/{id}")
+    public Result getById(@PathVariable Integer id) {
+        Emp emp = null;
+        try {
+            log.info("查询员工回显，参数：{}", id);
+            emp = empService.getById(id);
+        } catch (Exception e) {
+            log.error("查询员工回显失败：{}", e.getMessage());
+            return Result.error("查询员工回显失败");
+        }
+        return Result.success(emp);
+    }
+    // 修改员工
+    @PutMapping
+    public Result update(@RequestBody Emp emp){
+        try {
+            log.info("修改员工，参数：{}", emp);
+            empService.update(emp);
+        } catch (Exception e) {
+            log.error("修改员工失败：{}", e.getMessage());
+            return Result.error("修改员工失败");
+        }
+        return Result.success();
+    }
 }
