@@ -2,6 +2,7 @@ package com.tsw.utils;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,14 +12,13 @@ import java.util.UUID;
 
 @Component
 public class AliOSSUtils {
-    String endpoint = "oss-cn-beijing.aliyuncs.com";
-    @Value("${aliyun.oss.access-key-id}")
-    String accessKeyId;
-    @Value("${aliyun.oss.access-key-secret}")
-    String accessKeySecret;
-    String bucketName = "springboot-tilas-we";
-
+    @Autowired
+    private AliOSSProperties aliOSSProperties;
     public String upload(MultipartFile file) throws Exception {
+        String endpoint = aliOSSProperties.getEndpoint();
+        String accessKeyId = aliOSSProperties.getAccessKeyId();
+        String accessKeySecret = aliOSSProperties.getAccessKeySecret();
+        String bucketName = aliOSSProperties.getBucketName();
         // 获取上传文件的输入流
         InputStream inputStream = file.getInputStream();
 
