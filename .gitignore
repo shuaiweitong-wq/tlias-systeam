@@ -1,0 +1,40 @@
+# 操作系统生成的文件
+.DS_Store                  # Mac系统
+Thumbs.db                  # Windows系统
+*.swp                      # Vim交换文件
+*.swo                      # Vim交换文件
+
+# 编译产物
+target/                    # Java项目编译目录
+dist/                      # 前端项目构建目录
+build/                     # 通用构建目录
+out/                       # IDE输出目录
+*.class                    # Java字节码文件
+*.jar                      # Java打包文件
+*.war                      # Java Web应用包
+
+# 依赖目录
+node_modules/              # Node.js依赖
+vendor/                    # Composer(Python/PHP)依赖
+
+# 环境配置与敏感信息
+.env                       # 环境变量文件
+.env.local
+.env.*.local
+*.pem                      # 密钥文件
+*.key
+config/secrets.yml
+
+# IDE配置文件
+.idea/                     # IntelliJ IDEA
+.vscode/                   # VS Code
+*.suo                      # Visual Studio
+*.sublime-*                # Sublime Text
+
+# 日志文件
+logs/
+*.log
+
+# 临时文件
+tmp/
+temp/
