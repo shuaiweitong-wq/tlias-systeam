@@ -52,6 +52,7 @@ public class EmpServiceImpl implements EmpService {
 
     @Override
     public Emp login(Emp emp) {
-        empMapper.login(emp);
+        Emp e = empMapper.login(emp);
+        return e;
     }
 }
