@@ -9,12 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
-@Controller
+@RestController
 public class LoginController {
     @Autowired
     private EmpService empService;
@@ -34,9 +36,10 @@ public class LoginController {
             claims.put("username", e.getUsername());
             claims.put("name", e.getName());
             String jwt = jwtUtils.generateToken(claims);
+            log.info("生成jwt：{}", jwt);
             return Result.success(jwt);
         } catch (Exception e) {
-            log.info("登录失败" + e);
+            log.error("登录失败" + e);
             return Result.error("登录失败");
         }
     }
